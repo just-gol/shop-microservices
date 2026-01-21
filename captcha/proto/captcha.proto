@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package captcha;
+
+option go_package = "./proto;captcha";
+
+service Captcha {
+	rpc MakeCaptcha(MakeCaptchaReq)returns(MakeCaptchaResp);
+  rpc VerifyCaptcha(VerifyCaptchaReq)returns (VerifyCaptchaResp);
+}
+
+// height int, width int, length int
+message MakeCaptchaReq {
+	int32 height=1;
+  int32 width = 2;
+  int32 length = 3;
+}
+
+// string, string, string, error
+message MakeCaptchaResp {
+	string id = 1;
+	string b64s = 2;
+	string answer = 3;
+}
+
+message VerifyCaptchaReq {
+  string id = 1;
+  string answer = 2;
+}
+
+message VerifyCaptchaResp {
+	bool verifyResult =1;
+}
+
