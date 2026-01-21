@@ -10,7 +10,7 @@ import (
 
 type RbacLogin struct{}
 
-func New() *RbacLogin {
+func NewLogin() *RbacLogin {
 	return &RbacLogin{}
 }
 

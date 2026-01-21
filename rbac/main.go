@@ -41,7 +41,7 @@ func main() {
 	service.Init()
 
 	// Register handler
-	pb.RegisterRbacLoginHandler(service.Server(), handler.New())
+	pb.RegisterRbacLoginHandler(service.Server(), handler.NewLogin(), handler.NewRole())
 
 	// Run service
 	service.Run()
