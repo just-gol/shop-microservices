@@ -14,7 +14,11 @@ func NewRole() *RbacRole {
 }
 func (r *RbacRole) RoleGet(ctx context.Context, req *pb.RoleGetRequest, resp *pb.RoleGetResponse) error {
 	var roleList []models.Role
-	models.DB.Where("id = ?", req.Id).Find(&roleList)
+	db := models.DB
+	if req.Id > 0 {
+		db = db.Where("id = ?", req.Id)
+	}
+	db.Find(&roleList)
 	var tempList []*pb.RoleModel
 	for i := 0; i < len(roleList); i++ {
 		tempList = append(tempList, &pb.RoleModel{
@@ -45,9 +49,36 @@ func (r *RbacRole) RoleAdd(ctx context.Context, req *pb.RoleAddRequest, resp *pb
 	}
 	return nil
 }
-func (r *RbacRole) RoleEdit(ctx context.Context, req *pb.RoleEditRequest, resp *pb.RoleEditResponse) error {
+
+// RoleEdit 修改角色
+func (r *RbacRole) RoleEdit(ctx context.Context, req *pb.RoleEditRequest, res *pb.RoleEditResponse) error {
+	role := models.Role{Id: int(req.Id)}
+	models.DB.Find(&role)
+	role.Title = req.Title
+	role.Description = req.Description
+
+	err := models.DB.Save(&role).Error
+	if err != nil {
+		res.Success = false
+		res.Message = "修改数据失败"
+	} else {
+		res.Success = true
+		res.Message = "修改数据成功"
+	}
+
 	return nil
 }
-func (r *RbacRole) RoleDelete(ctx context.Context, req *pb.RoleDeleteRequest, resp *pb.RoleDeleteResponse) error {
+
+// RoleDelete 删除角色
+func (r *RbacRole) RoleDelete(ctx context.Context, req *pb.RoleDeleteRequest, res *pb.RoleDeleteResponse) error {
+	role := models.Role{Id: int(req.Id)}
+	err := models.DB.Delete(&role).Error
+	if err != nil {
+		res.Success = false
+		res.Message = "删除数据失败"
+	} else {
+		res.Success = true
+		res.Message = "删除数据成功"
+	}
 	return nil
 }
