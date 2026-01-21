@@ -12,7 +12,7 @@ api:
 
 .PHONY: proto
 proto:
-	protoc --proto_path=. --micro_out=. --go_out=:. proto/rbac.proto
+	protoc --proto_path=. --micro_out=. --go_out=:. proto/rbacRole.proto
 	
 .PHONY: build
 build:

@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package rbac;
 
-option go_package = "./proto;rbac";
+option go_package = "./proto;rbacLogin";
 
-service Rbac {
+service RbacLogin {
   rpc Login(LoginReq) returns (LoginResp) {}
 }
 message ManagerModel{

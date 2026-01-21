@@ -3,19 +3,18 @@ package handler
 import (
 	"context"
 	"rbac/models"
-
-	pb "rbac/proto"
+	pb "rbac/proto/rbacLogin"
 
 	"github.com/sirupsen/logrus"
 )
 
-type Rbac struct{}
+type RbacLogin struct{}
 
-func New() *Rbac {
-	return &Rbac{}
+func New() *RbacLogin {
+	return &RbacLogin{}
 }
 
-func (e *Rbac) Login(ctx context.Context, req *pb.LoginReq, resp *pb.LoginResp) error {
+func (e *RbacLogin) Login(ctx context.Context, req *pb.LoginReq, resp *pb.LoginResp) error {
 	models.Logger.WithFields(logrus.Fields{
 		"method": "Login",
 		"params": req,

@@ -2,7 +2,7 @@ package main
 
 import (
 	"rbac/handler"
-	pb "rbac/proto"
+	pb "rbac/proto/rbacLogin"
 
 	"github.com/micro/plugins/v5/registry/consul"
 	"go-micro.dev/v5"
@@ -41,7 +41,7 @@ func main() {
 	service.Init()
 
 	// Register handler
-	pb.RegisterRbacHandler(service.Server(), handler.New())
+	pb.RegisterRbacLoginHandler(service.Server(), handler.New())
 
 	// Run service
 	service.Run()
