@@ -3,6 +3,7 @@ package main
 import (
 	"rbac/handler"
 	pbLogin "rbac/proto/rbacLogin"
+	pbManager "rbac/proto/rbacManager"
 	pbRole "rbac/proto/rbacRole"
 
 	"github.com/micro/plugins/v5/registry/consul"
@@ -51,6 +52,8 @@ func main() {
 		service.Server(),
 		handler.NewRole(),
 	)
+
+	pbManager.RegisterRbacManagerHandler(service.Server(), handler.NewManager())
 
 	// Run service
 	service.Run()
